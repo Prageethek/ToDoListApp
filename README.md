@@ -10,7 +10,7 @@ This is a **React Native** To-Do List application developed using the [React Nat
 - ✅ **Add Tasks** – Users can input and add new tasks.
 - ❌ **Delete Tasks** – Tasks can be removed from the list.
 - ✔️ **Mark Tasks as Complete** – Tasks can be marked complete with visual indicators like strikethrough.
-- 💾 **Persistent Storage** *(Bonus)* – Tasks are saved locally using [AsyncStorage](https://www.npmjs.com/package/@react-native-async-storage/async-storage) for data persistence.
+- 💾 **Persistent Storage**  – Tasks are saved locally using [AsyncStorage](https://www.npmjs.com/package/@react-native-async-storage/async-storage) for data persistence.
 
 ---
 
@@ -19,8 +19,6 @@ This is a **React Native** To-Do List application developed using the [React Nat
 - React Native CLI
 - Functional components with **React Hooks**
 - **Zustand** for state management
-- Custom styling following **Material Design** guidelines
-- Well-structured and clean code with helpful comments
 
 ---
 
