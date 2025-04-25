@@ -79,7 +79,7 @@ pod install
 ---
 ## 📹 Demo
 
-<video src="assets/Screenrecorder-2025-04-25-11-59-43-230.mp4" controls width="600"></video>
+📥 [Download Demo Video](assets/Screenrecorder-2025-04-25-11-59-43-230.mp4)
 
 
 
