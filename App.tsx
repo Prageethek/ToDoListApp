@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import Home from './src/Home'; // Make sure this path is correct
+import Home from './src/Home';
 
 export default function App() {
   return <Home />;
