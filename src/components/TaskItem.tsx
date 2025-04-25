@@ -1,45 +1,62 @@
 // src/components/TaskItem.tsx
 
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {Task, useTaskStore} from '../store/taskStore';
+import { Task, useTaskStore } from '../store/taskStore';
 import EditModal from './EditModal';
 
 interface Props {
   task: Task;
   isOpen: boolean;
   onToggle: (id: string) => void;
+  onToggleComplete: (id: string) => void;
 }
 
-export default function TaskItem({task, isOpen, onToggle}: Props) {
+export default function TaskItem({ task, isOpen, onToggle, onToggleComplete }: Props) {
   const removeTask = useTaskStore(state => state.removeTask);
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
-  const truncated =
-    task.body.length > 50 ? task.body.slice(0, 50) + '...' : task.body;
+
+  const truncated = task.body.length > 50 ? task.body.slice(0, 50) + '...' : task.body;
 
   return (
     <>
       <TouchableOpacity activeOpacity={0.8} onPress={() => onToggle(task.id)}>
         <View style={styles.container}>
           <View style={styles.textBlock}>
-            <Text style={styles.title}>{task.title}</Text>
-            <Text style={styles.body}>{isOpen ? task.body : truncated}</Text>
+            <Text style={[styles.title, task.completed && styles.completedText]}>
+              {task.title}
+            </Text>
+            <Text style={[styles.body, task.completed && styles.completedText]}>
+              {isOpen ? task.body : truncated}
+            </Text>
+
             {isOpen && (
               <View style={styles.actions}>
-                <TouchableOpacity style={styles.button}
-                  onPress={() => {
-                    /* Share logic */
-                  }}>
+                <TouchableOpacity style={styles.button} onPress={() => {
+                  // Share logic can go here
+                }}>
                   <Icon name="share-2" size={18} color="#F0E3CA" />
                 </TouchableOpacity>
+
                 <TouchableOpacity style={styles.button} onPress={() => setShowEditModal(true)}>
                   <Icon name="edit-2" size={18} color="#F0E3CA" />
                 </TouchableOpacity>
               </View>
             )}
           </View>
+
+          {/* ✅ Mark as Complete (always visible) */}
+          <TouchableOpacity style={styles.button} onPress={() => onToggleComplete(task.id)}>
+            <Icon
+              name={task.completed ? 'check-circle' : 'circle'}
+              size={22}
+              color={task.completed ? '#FF8303' : '#FF8303'}
+            />
+          </TouchableOpacity>
+
+          {/* ❌ Delete Button */}
           <TouchableOpacity style={styles.button} onPress={() => setShowDeleteModal(true)}>
             <Icon name="x" size={25} color="#FF8303" />
           </TouchableOpacity>
@@ -85,9 +102,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 4,
   },
-  textBlock: {flex: 1},
-  title: {fontSize: 16, color: '#F0E3CA', fontWeight: 'bold'},
-  body: {marginTop: 4, color: '#F0E3CA'},
+  textBlock: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 16,
+    color: '#F0E3CA',
+    fontWeight: 'bold',
+  },
+  body: {
+    marginTop: 4,
+    color: '#F0E3CA',
+  },
+  completedText: {
+    textDecorationLine: 'line-through',
+    color: '#888',
+  },
   actions: {
     flexDirection: 'row',
     gap: 20,
@@ -134,5 +164,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FF8303',
     borderRadius: 6,
+    marginLeft: 6,
   },
 });

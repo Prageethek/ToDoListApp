@@ -7,6 +7,7 @@ import TaskItem from './TaskItem';
 
 export default function TaskList() {
   const tasks = useTaskStore(state => state.tasks);
+  const toggleCompleteTask = useTaskStore(state => state.toggleCompleteTask);
   const [openTaskId, setOpenTaskId] = useState<string | null>(null);
 
   const handleToggle = (id: string) => {
@@ -32,8 +33,10 @@ export default function TaskList() {
           task={item}
           isOpen={item.id === openTaskId}
           onToggle={handleToggle}
+          onToggleComplete={toggleCompleteTask} 
         />
       )}
+      
     />
   );
 }
